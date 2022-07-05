@@ -8,6 +8,10 @@
 
 Taskmaster is a web application for collaborative task management. Users will be able to create tasks or projects to file tasks into. Projects can have members who can take tasks for themselves and mark them completed. A project manager will be able to create and assign tasks. Tasks will have due dates.
 
+### Knowledge Requirements
+
+Node.js, Express, React, SQL, Authentication, SCSS
+
 
 ## Backend Documentation
 ### Database Notes
