@@ -80,7 +80,25 @@ CRUD Routes and Queries will be documented here.
 | Projects | Delete | projects/:id | deletes specific project |
 | Projects | Delete | projects/collaborators/:id | deletes specific project collaborator |
 | -- | -- | -- | -- |
-|
+| Tasks | Post | tasks/ | creates new task |
+| Tasks | Put | tasks/:id | updates task |
+| Tasks | Get | tasks/ | fetches list of tasks |
+| Tasks | Delete | tasks/:id | deletes specific task |
+
+
+## FrontEnd Documentation
+
+### Populating a user's tasks and projects
+
+A user should have a dashboard after logging in. The dashboard will have a list of their currently assigned tasks in ascending order of due date proximity. Post-MVP goals will have the tasks higher on the list marked red as a warning that they're urgent.
+
+Projects will follow the same pattern.
+
+### Collaborators
+
+Collaborators will be able to assign themselves tasks in a project they are authorized for. Collaborators should not see or have access to the project control panel, including the delete and edit buttons for the tasks they are assigned. This is why in the task table, createdBy and assignedTo are separate cells.
+
+
 
 
 
