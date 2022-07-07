@@ -2,13 +2,13 @@
 
 ROUTES
 | Projects | Post | projects/ | creates new project |
-| Projects | Post | projects/collaborators | creates new collaborator | 
 | Projects | Put | projects/:id | updates project |
 | Projects | Get | projects/ | fetches list of projects |
 | Projects | Get | projects/:id/tasks | fetches list of tasks for specific project |
-| Projects | Get | projects/collaborators | fetches list of collaborators |
 | Projects | Delete | projects/:id | deletes specific project |
-| Projects | Delete | projects/collaborators/:id | deletes specific project collaborator |
+| Projects | Get | projects/:id/group | fetches list of group members |
+| Projects | Post | projects/:id/group | creates new group member |
+| Projects | Delete | projects/:id/group/:id | deletes group member |
 
 */
 // DEPENDENCIES
@@ -46,11 +46,15 @@ projects.delete('/:id',(req,res)=>{
 })
 
 // POST route for collaborator
-projects.delete('/collaborators/:id',(req,res)=>{
+projects.post('/:id/group/',(req,res)=>{
     res.send("Adds project collaborator")
 })
+// GET route for list of collaborators
+projects.get('/:id/group',(req,res)=>{
+    res.send("List of group members")
+})
 // DELETE route for collaborator
-projects.delete('/collaborators/:id',(req,res)=>{
+projects.delete('/:id/group/:id',(req,res)=>{
     res.send("Removes specific project collaborator")
 })
 

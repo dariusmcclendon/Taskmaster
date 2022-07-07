@@ -14,19 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Groups.init({
-    project_id:
-    { type : DataTypes.INTEGER,
-      allowNull : false
-    },
+    id:
+      { type : DataTypes.INTEGER,
+        PrimaryKey : true,
+        AutoIncrement : true,
+        allowNull : false
+
+      },
+    project_id: 
+      { type : DataTypes.INTEGER,
+        allowNull : false
+      },
     user_id:
       { type : DataTypes.INTEGER,
         allowNull : false
-      }
+      },
+    allow_edit:
+    { type : DataTypes.BOOLEAN,
+      defaultValue : false
+    } 
   }, {
     sequelize,
     modelName: 'Groups',
     tableName: 'groups',
-    timestamps : false
+    timestamps: false
   });
   return Groups;
 };

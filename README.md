@@ -14,57 +14,30 @@ Node.js, Express, React, SQL, Authentication, SCSS
 
 
 ## Backend Documentation
-### Database Notes
+### Database Structure
 
-The Database will be made using SQL.
+The Database is built using PostgreSQL and Sequelize-CLI. The DB includes four tables : Users, Projects, Tasks, Groups. 
 
-There should be four Tables : Users, Projects, Collaborators and Tasks. A User can have many projects and tasks. Projects can have many tasks. Tasks can only belong to one project and one user, but should be able to be managed by the owner of the project it belongs to. 
-
+#### User Table Columns and Datatypes
 A User Table's rows should look like this :
-| column name | data type |
-| ----------- | --------- |
-| id | integer |
-| displayName | string |
-| userName | string |
-| password | string |
+| user_id : integer | display_name : string | username : string | password : string |
 
-Users will be able to change their displayName. Their userName will be used to log into their account. Additional goals beyond the MVP may include an email field in order to facilitate authorization and password resets.
-
-
+#### Project Table Columns and Datatypes
 A Project Table's rows should look like this :
-| column name | data type |
-| ----------- | --------- |
-| id | integer |
-| title | string |
-| desc | string |
-| ownerId | integer |
+| project_id : integer | title : string | desc : text | owner_id : integer | 
 
-Projects should have a title and brief description of their purpose.
-
+#### Group Table Columns and Datatypes
 A Collaborator Table's rows should look like this : 
-| column name | data type |
-| ----------- | --------- |
-| projectId | integer |
-| collabId | integer | 
+| project_id : integer | user_id : integer |
 
-
+#### Task Table Columns and Datatypes
 A Task Table's rows should look like this :
-| column name | data type |
-| ----------- | --------- |
-| id | integer |
-| title | string |
-| desc | string |
-| frequency | enum |
-| dueDate | string |
-| projectId | integer |
-| assignedTo | integer |
-| createdBy | integer |
+| task_id : integer | title : string | desc : text | frequency : enum('once', 'daily','weekly','monthly') | dueDate : date | project_id : integer | assigned : integer | createdBy : integer |
 
-frequency enum will have the options "one time", "daily", "weekly", "monthly".
-
-### Route Notes
+### Routes, Fetch Request Explanations
 
 CRUD Routes and Queries will be documented here.
+
 
 
 | Controller | Method | Route | Description |
@@ -74,15 +47,17 @@ CRUD Routes and Queries will be documented here.
 | Users | Get | users/ | fetches list of users |
 | Users | Get | users/:id | fetches specific user |
 | Users | Delete | users/:id | deletes specific user |
-| Users | Get | users/:id/projects | fetches list of projects owned by user | 
+| Users | Get | users/:id/projects | fetches list of projects owned by user |
+| Users | Get | users/:id/groups | fetches list of groups user is in | 
 | ----- | ------ | --------- | --------------------- |
 | Projects | Post | projects/ | creates new project |
 | Projects | Put | projects/:id | updates project |
 | Projects | Get | projects/ | fetches list of projects |
 | Projects | Get | projects/:id/tasks | fetches list of tasks for specific project |
-| Projects | Get | projects/collaborators | fetches list of collaborators |
 | Projects | Delete | projects/:id | deletes specific project |
-| Projects | Delete | projects/collaborators/:id | deletes specific project collaborator |
+| Projects | Get | projects/:id/group | fetches list of group members |
+| Projects | Post | projects/:id/group | creates new group member |
+| Projects | Delete | projects/:id/group/:id | deletes group member |
 | -- | -- | -- | -- |
 | Tasks | Post | tasks/ | creates new task |
 | Tasks | Put | tasks/:id | updates task |

@@ -14,42 +14,48 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Tasks.init({
-    task_id: 
+    task_id:
       { type : DataTypes.INTEGER,
-        primaryKey : true,
-        autoIncrement : true,
-        allowNull : false
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
       },
-    title: 
-      { type : DataTypes.STRING,
-        allowNull : false
+    title:
+      { type: DataTypes.STRING,
+        allowNull: false
       },
-    desc: 
-      { type : DataTypes.TEXT,
+    desc:
+      { type: DataTypes.TEXT,
       },
     frequency:
-      { type : DataTypes.ENUM('once','daily','weekly','monthly'),
-        defaultValue : 'once'
-    },
+      { type: DataTypes.ENUM('once','daily','weekly','monthly'),
+        defaultValue: 'once'
+      },
     dueDate:
-      { type : DataTypes.DATE,
-        allowNull : false,
-      }, 
-    project_id: 
-      { type : DataTypes.INTEGER,
+      { type: DataTypes.DATE,
         allowNull : false
       },
+    project_id:
+      { type: DataTypes.INTEGER,
+        allowNull: false
+      },
     assigned:
-    { type : DataTypes.INTEGER,
-    },
-    creator: 
-      { type : DataTypes.INTEGER,
-        allowNull : false
-      }, 
+      { type: DataTypes.INTEGER,
+        allowNull: false
+      },
+    complete:
+      { type: DataTypes.BOOLEAN,
+        defaultValue: false
+
+      },
+    creator:
+      { type: DataTypes.INTEGER,
+        allowNull: false
+
+      }
+  }, {
     sequelize,
     modelName: 'Tasks',
-    tableName: 'tasks',
-    timestamps: false
   });
   return Tasks;
 };

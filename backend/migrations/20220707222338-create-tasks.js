@@ -17,22 +17,26 @@ module.exports = {
       },
       frequency: {
         type: Sequelize.ENUM('once','daily','weekly','monthly'),
-        allowNull: false,
+        defaultValue: 'once'
       },
       dueDate: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: false
       },
       project_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: false
       },
       assigned: {
         type: Sequelize.INTEGER
       },
+      complete: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       creator: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

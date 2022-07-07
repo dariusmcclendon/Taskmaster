@@ -7,7 +7,8 @@ ROUTES :
 | Users | Get | users/ | fetches list of users |
 | Users | Get | users/:id | fetches specific user |
 | Users | Delete | users/:id | deletes specific user |
-| Users | Get | users/:id/projects | fetches list of projects owned by user | 
+| Users | Get | users/:id/projects | fetches list of projects owned by user |
+| Users | Get | users/:id/groups | fetches list of groups user is in | 
 */
 
 // DEPENDENCIES
@@ -43,6 +44,11 @@ users.delete('/:id',(req,res)=>{
 
 users.get('/:id/projects',(req,res)=>{
     res.send("List of users' projects.")
+})
+
+// GET route for users' groups
+users.get('/:id/groups',(req,res)=>{
+    res.send("List of users' groups.")
 })
 
 // EXPORT
