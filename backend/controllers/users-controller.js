@@ -1,55 +1,103 @@
 /* USERS CONTROLLER
-ROUTES : 
-| Controller | Method | Route | Description |
-| ---------- | ------ | ----- | ----------- |
-| Users | Post | users/ | creates new user |
-| Users | Put | users/:id | updates user |
-| Users | Get | users/ | fetches list of users |
-| Users | Get | users/:id | fetches specific user |
-| Users | Delete | users/:id | deletes specific user |
-| Users | Get | users/:id/projects | fetches list of projects owned by user |
-| Users | Get | users/:id/groups | fetches list of groups user is in | 
+
 */
 
 // DEPENDENCIES
-let express = require('express')
-let users = express()
+let users = require('express').Router()
+let db = require('../models')
+let { User } = db
+let { Projects } = db
+let { Op } = require('sequelize')
+
+
 
 // GET route for fetching list of users. Should only be authorized for admin use.
-users.get('/',(req,res)=>{
-    res.send("Fetches list of users")
+users.get('/', async (req,res)=>{ 
+    // ensure all db queries are wrapped in try and catch statements.
+    try {
+        let foundUsers = await User.findAll() // query for the entire User table. No arguments are passed
+        res.status(200).json(foundUsers) // return the table as a json with status 200
+    } catch (err) {
+        res.status(500).json(err) // return status 500 if there is an error.
+        console.log(`Error at GET users/ : ${err}`)
+    }
 })
 
 // GET route for fetching specific user. 
-users.get('/:id',(req,res)=>{
-    res.send("Fetches specific user")
+users.get('/:id', async (req,res)=>{
+    try {
+        let foundOneUser = await User.findOne({ // query for a single user.
+            where: {user_id: req.params.id}     // argument for using parameters
+        })
+        res.status(200).json(foundOneUser)
+    } catch (err) {
+        res.status(500).json(err)
+    }
 })
 
+// GET route for searching for users by display_name.
+users.get('/:name', async (req,res)=>{
+    try {
+        let foundUsers = await User.findAll({
+            where: {display_name: req.params.name}
+        })
+        res.status(200).json(foundUsers)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
 // POST route for creating new user.
-users.post('/',(req,res)=>{
-    res.send("Creates new user")
+users.post('/', async (req,res)=>{
+    try {
+        let newUser = await User.create(req.body) // create helper method for the User model.
+        res.status(200).json({
+            message: "user created",
+            data: newUser
+        })
+    } catch (err) {
+        res.status(500).json(err)
+    }
 })
 
 // PUT route for updating a user.
-users.put('/:id',(req,res)=>{
-    res.send("Updates user")
+users.put('/:id', async (req,res)=>{
+   try {
+    let updatedUser = await User.update(req.body, {
+        where: { user_id: req.params.id}
+    })
+    res.status(200).json({
+        message: `User updated.`
+    })
+   } catch (err) {
+    res.status(500).json(err)
+   }
 })
 
 // DELETE route for deleting a user
-users.delete('/:id',(req,res)=>{
-    res.send("Deletes specific user.")
+users.delete('/:id',async (req,res)=>{
+    try {
+        let deletedUser = await User.destroy({
+            where: { user_id: req.params.id }
+        })
+    } catch (err) {
+        res.status(500).json(err)
+    }
 })
 
-// GET route for users' projects
 
-users.get('/:id/projects',(req,res)=>{
-    res.send("List of users' projects.")
+// GET route for fetching list of projects owned by user
+users.get('/:id/projects', async (req,res)=>{
+    try { 
+        let foundProjects = await Projects.findAll({
+            where : { owner_id : req.params.id}
+        })
+        res.status(200).json(foundProjects)
+    } catch (err) {
+        res.status(500).json(err)
+    }
 })
 
-// GET route for users' groups
-users.get('/:id/groups',(req,res)=>{
-    res.send("List of users' groups.")
-})
+// GET route for fetching list of projects a user is part of via group
 
 // EXPORT
 

@@ -16,26 +16,15 @@ app.use(express.urlencoded({extended: false}))
 
 
 // ROOT
-app.get('/',(req,res)=>{
+app.get('/api',(req,res)=>{
     res.status(200).send("Taskmaster here, what do you want?")
 })
 
 app.listen(process.env.PORT,()=>{
     console.log(`Taskmaster is live and listening on port ${process.env.PORT}`)
-    console.log(process.env.DB_PASSWORD)
 })
 
-//SEQUELIZE CONNECTION
-// const sequelize = new Sequelize(process.env.PG_URI)
-// try {
-//     sequelize.authenticate()
-//     console.log(`Connected with Sequelize at ${process.env.PG_URI}`)
-// } catch(err) {
-//     console.log(`Unable to connect to PG: ${err}`)
-// }
-
-
 // CONTROLLERS
-app.use('/api/users', usersController)
-app.use('/api/projects', projectsController)
-app.use('/api/tasks', tasksController)
+app.use('/users', usersController)
+app.use('/projects', projectsController)
+app.use('/tasks', tasksController)

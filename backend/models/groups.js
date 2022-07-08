@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Groups.init({
     id:
       { type : DataTypes.INTEGER,
-        PrimaryKey : true,
-        AutoIncrement : true,
+        primaryKey : true,
+        autoIncrement : true,
         allowNull : false
 
       },
