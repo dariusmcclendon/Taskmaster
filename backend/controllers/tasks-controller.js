@@ -9,7 +9,6 @@ ROUTES
 // DEPENDENCIES
 
 let tasks = require('express').Router()
-const { userInfo } = require('os')
 let db = require('../models')
 let { Tasks } = db
 
@@ -35,42 +34,6 @@ tasks.get('/:id', async (req,res)=>{
     }
 })
 
-// GET route for finding tasks by project.
-tasks.get('/project/:id', async (req,res)=>{
-    try {
-        let foundTasks = await Tasks.findAll({
-            where : { project_id: req.params.id }
-        })
-        res.status(200).json(foundTasks)
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
-
-// GET route for finding tasks by assigned user.
-tasks.get('/assigned/:id', async (req,res)=>{
-    try {
-        let foundTasks = await Tasks.findAll({
-            where : { assigned: req.params.id }
-        })
-        res.status(200).json(foundTasks)
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
-
-// GET route for finding tasks by creator.
-tasks.get('/project/:id', async (req,res)=>{
-    try {
-        let foundTasks = await Tasks.findAll({
-            where : { creator: req.params.id }
-        })
-        res.status(200).json(foundTasks)
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
-
 // POST route for creating a new task
 tasks.post('/', async (req,res)=>{
     try {
@@ -85,7 +48,7 @@ tasks.post('/', async (req,res)=>{
 })
 
 // PUT route for updating a task
-tasks.put('/:id',(req,res)=>{
+tasks.put('/:id', async (req,res)=>{
     try {
         let updatedTask = await Tasks.update(req.body,{
             where: { task_id: req.params.id}
@@ -99,7 +62,7 @@ tasks.put('/:id',(req,res)=>{
 })
 
 // DELETE route for deleting a task
-tasks.delete('/:id',(req,res)=>{
+tasks.delete('/:id', async (req,res)=>{
     try {
         let deletedTask = await Tasks.destroy({
             where: {task_id: req.params.id}

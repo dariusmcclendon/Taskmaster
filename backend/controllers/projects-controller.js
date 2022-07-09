@@ -90,5 +90,17 @@ projects.get('/:id/group', async (req,res)=>{
     }
 
 })
+// POST route for adding group member to project
+projects.post('/:id/group/:member_id', async (req,res)=>{
+    try {
+        res.status(200).send("POST route for adding group member.")
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+// DELETE route for removing member from a group. This route should only work for the group leader
+projects.delete('/:id/group/:member_id', async (req,res)=>{
+    res.status(200).send("DELETE route for deleting a group member.")
+})
 // EXPORT
 module.exports = projects

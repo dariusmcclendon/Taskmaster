@@ -5,8 +5,7 @@
 // DEPENDENCIES
 let users = require('express').Router()
 let db = require('../models')
-let { User } = db
-let { Projects } = db
+let { User, Projects, Groups, Tasks } = db
 let { Op } = require('sequelize')
 
 
@@ -97,8 +96,39 @@ users.get('/:id/projects', async (req,res)=>{
     }
 })
 
-// GET route for fetching list of projects a user is part of via group
 
+// GET route for finding tasks by assigned user.
+users.get('tasks/assigned/:id', async (req,res)=>{
+    try {
+        let foundTasks = await Tasks.findAll({
+            where : { assigned: req.params.id }
+        })
+        res.status(200).json(foundTasks)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+
+// GET route for finding tasks by creator.
+users.get('tasks/created/:id', async (req,res)=>{
+    try {
+        let foundTasks = await Tasks.findAll({
+            where : { creator: req.params.id }
+        })
+        res.status(200).json(foundTasks)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+// GET route for fetching list of projects a user is part of via group
+users.get('/:id/groups', async (req,res)=>{
+    res.status(200).send("GET route for fetching list of projects a user is part of via group")
+})
+
+// DELETE route for user leaving a group. This should only be utilized by the user
+users.delete('/:id/groups/:group_id', async (req,res)=>{
+    res.status(200).send("DELETE route for removing self from a project.")
+})
 // EXPORT
 
 module.exports = users

@@ -25,6 +25,6 @@ app.listen(process.env.PORT,()=>{
 })
 
 // CONTROLLERS
-app.use('/users', usersController)
-app.use('/projects', projectsController)
-app.use('/tasks', tasksController)
+app.use('/api/users', usersController)
+app.use('/api/projects', projectsController)
+app.use('/api/tasks', tasksController)

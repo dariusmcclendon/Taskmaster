@@ -37,32 +37,41 @@ A Task Table's rows should look like this :
 ### Routes, Fetch Request Explanations
 
 CRUD Routes and Queries will be documented here.
+The root for the API is /api. For example, the route for fetching a list of users would be /api/users/.
 
+#### USER Controller
 
+| Method | Route | Description |
+| ------ | ----- | ----------- |
+| GET | /users | Fetches list of ALL users. Should only be authorized for use by admin account. |
+| GET | users/:id | Fetches specific user by user_id. |
+| GET | users/:name | Fetches list of users by display_name. Used to query users to add to groups. |
+| POST | /users | Creates a new user. |
+| PUT | /users/:id | Updates a user. | 
+| DELETE | /users/:id | Deletes a user. |
+| GET | /users/:id/projects | Fetches a user's projects. | 
+| GET | /users/tasks/assigned/:id | Fetches a user's assigned projects. | 
+| GET | /users/tasks/created/:id | Fetches a user's created tasks. |
+| GET | /users/:id/groups | Fetches projects a user is involved in via group. |
+| DELETE | users/:id/groups/:group_id | Allows a user to remove SELF from project. |
 
-| Controller | Method | Route | Description |
-| ---------- | ------ | ----- | ----------- |
-| Users | Post | users/ | creates new user |
-| Users | Put | users/:id | updates user |
-| Users | Get | users/ | fetches list of users |
-| Users | Get | users/:id | fetches specific user |
-| Users | Delete | users/:id | deletes specific user |
-| Users | Get | users/:id/projects | fetches list of projects owned by user |
-| Users | Get | users/:id/groups | fetches list of groups user is in | 
-| ----- | ------ | --------- | --------------------- |
-| Projects | Post | projects/ | creates new project |
-| Projects | Put | projects/:id | updates project |
-| Projects | Get | projects/ | fetches list of projects |
-| Projects | Get | projects/:id/tasks | fetches list of tasks for specific project |
-| Projects | Delete | projects/:id | deletes specific project |
-| Projects | Get | projects/:id/group | fetches list of group members |
-| Projects | Post | projects/:id/group | creates new group member |
-| Projects | Delete | projects/:id/group/:id | deletes group member |
-| -- | -- | -- | -- |
-| Tasks | Post | tasks/ | creates new task |
-| Tasks | Put | tasks/:id | updates task |
-| Tasks | Get | tasks/ | fetches list of tasks |
-| Tasks | Delete | tasks/:id | deletes specific task |
+#### PROJECTS Controller
+
+| Method | Route | Description |
+| ------ | ----- | ----------- |
+| GET | /projects | Fetches list of ALL projects. Should only be authorized for use by admin account. | 
+| GET | /projects/:id | Fetches specific project. | 
+| POST | /projects | Creates a new project. |
+| DELETE | /projects/:id | Deletes a project. | 
+| GET | /projects/:id/tasks | Fetches list of tasks by project id. | 
+| GET | /projects/:id/group | Fetches group members of project by project id. | 
+| POST | /projects/:id/group/:member_id | Adds a group member. | 
+| DELETE | /projects/:id/group:member_id | Removes a member from a group. |  
+
+Although common practice while learning our CRUD routes was to assign a controller to every model, I personally find it easier to add certain routes to certain controllers based on the use-case of their access. For example, projects will only ever be queried and accessed by the user directly. There will never be a public query for ALL projects on the site. So it makes sense to have the route to find a project by user in the user controller instead of the project one.
+
+This is seen in the relation between projects and tasks, users and groups, and projects and groups. I don't want to create a route for fetching tasks via user_id that looks like "api/tasks/user/:id". I like "api/users/tasks" instead.
+
 
 
 ## FrontEnd Documentation
@@ -77,13 +86,25 @@ Projects will follow the same pattern.
 
 Collaborators will be able to assign themselves tasks in a project they are authorized for. Collaborators should not see or have access to the project control panel, including the delete and edit buttons for the tasks they are assigned. This is why in the task table, createdBy and assignedTo are separate cells.
 
-## Schedule
+## Planned Changes
 
-Ironically enough, this is the part where this project would come in handy. 
+- Frontend wireframe website.
+- Authentication.
+- Groups. MVP complete here.
+- BONUS : Notification system to notify users of pending tasks, group invites
 
-7/05/22 - Complete General README.md documentation. Include routes and tables required. Create frontend and backend folders locally and prepare github repositories.
 
-7/07/22 - Skeleton of backend routes. Pseudo-code acceptable. Migrations began and/or complete by the end of the class session. 
+
+## Changelog
+
+### 7/05/22
+Project created. Repo created on GitHub. Express App skeleton made. Controllers, etc.
+
+### 7/07/22
+Link to PostgreSQL database established. Models and migrations completed. 
+
+### 7/09/22
+Seeders generated. Routes reorganized. Routes confirmed to function properly. README updated to include route documentation and discussion.
 
 
 
