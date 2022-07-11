@@ -19,7 +19,7 @@ export default function TaskList(props){
             </Col>
         )
     }
-    if(props.tasks){
+    if(props.tasks.length !== 0){
         listItems = props.tasks.map((task)=>{
             return (
                 <Accordion.Item eventKey={task.task_id}>
@@ -36,7 +36,7 @@ export default function TaskList(props){
                             <Button>
                                 Complete
                             </Button>
-                            <Button>
+                            <Button onClick={()=>{props.delete(task.task_id)}}>
                                 Delete
                             </Button>
                             </Col>
@@ -47,6 +47,10 @@ export default function TaskList(props){
                 </Accordion.Item>
             )
         })
+    } else if(props.tasks.length == 0){
+        return (
+            <h4>No tasks.</h4>
+        )
     } else {
         listItems = loadingList()
     }

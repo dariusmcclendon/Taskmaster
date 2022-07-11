@@ -4,7 +4,7 @@ import {Form, Card, CloseButton, Button} from 'react-bootstrap'
 
 export default function NewTaskModule(props){
     return (
-       <Card>
+       <Card style={{width:'85%'}}>
             <Card.Title>New Task <CloseButton onClick={()=>{props.show(false)}}/></Card.Title>
             <Card.Body>
                 <Form onSubmit={props.createTask}>

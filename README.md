@@ -118,6 +118,7 @@ Seeders generated. Routes reorganized. Routes confirmed to function properly. RE
  - Added ProjectViewer page.
  - Task CRUD functionality.
  - Project CRUD functionality.
+ - Some styling.
 
  -- Planned Changes : Refactoring components to include CRUD functions to debloat projectviewer code.
 

@@ -115,8 +115,22 @@ export default function projectViewer(props){
             })
             let reply = await response.json()
             console.log(reply)
-            setUpdate(!update)
+            fetchTasks(currentProject)
         } catch(err){
+            console.log(err)
+        }
+    }
+    // DELETE function to pass to TaskList
+    let deleteTask = async(id)=>{
+        try {
+            let response = await fetch(`http://localhost:3000/api/tasks/${id}`,{
+                method: 'DELETE',
+                headers: {'Content-Type':'application/json'}
+            })
+            let reply = await response.json()
+            console.log(reply)
+            fetchTasks(currentProject)
+        } catch (err) {
             console.log(err)
         }
     }
@@ -133,54 +147,53 @@ export default function projectViewer(props){
                 currentProject={currentProject}/>
             </Row>
         
-            <Row lg={2}>
-                    <Col id="task-col">
-                        <Row>
-                        <h3>Tasks 
-                            <Button variants='success' 
-                                onClick={()=>{setShowNewTask(true)}}>
-                                New Task
-                            </Button>
-                        </h3>
-                        </Row>
-                        <Row>
-                            {showNewTask ? <NewTask
-                                newTaskName={newTaskName}
-                                setNewTaskName={setNewTaskName}
-                                show={setShowNewTask}
-                                createTask={createTask}
-                                taskFrequency={taskFrequency}
-                                setTaskFrequency={setTaskFrequency}
-                            /> : null}
-                        </Row>
-                        <TaskList tasks={tasks}/>
+            <Row >
+                    <Col id="task-col" lg={8} className="border-end border-dark h-100 px-2">
+                            <Row>
+                            <h3>Tasks 
+                                <Button variants='success' className='mx-2'
+                                    onClick={()=>{setShowNewTask(true)}}>
+                                    New Task
+                                </Button>
+                            </h3>
+                            </Row>
+                            
+                                {showNewTask ? <NewTask
+                                    newTaskName={newTaskName}
+                                    setNewTaskName={setNewTaskName}
+                                    show={setShowNewTask}
+                                    createTask={createTask}
+                                    taskFrequency={taskFrequency}
+                                    setTaskFrequency={setTaskFrequency}
+                                /> : null}
+                            
+                            <TaskList tasks={tasks} delete={deleteTask}/>
                     </Col>
                     
-                    <Col id="project-col">
-                        <Row>
-                            <h3>Manage  
-                                <Button variant='success' 
-                                    onClick={()=>{setShowNewProject(true)}}>
-                                    New Project
-                                </Button>
-                            </h3> 
-                        </Row>
-                        <Row>
-                        { showNewProject ? <NewProject
-                            newProjectName={newProjectName}
-                            setNewProjectName={setNewProjectName}
-                            createProject={createProject}
-                            hide={setShowNewProject}
-                        /> : null}
-                        </Row>
-                        <Row>
-                            
-                            <ProjectModule 
-                                project={currentProject}
-                                deleteClick={deleteProject}
-                            />
-                        </Row>
-                        
+                    <Col id="project-col" className="h-100 px-2">
+                            <Row>
+                                    <h3>Manage  
+                                        <Button variant='success' className='mx-2'
+                                            onClick={()=>{setShowNewProject(true)}}>
+                                            New Project
+                                        </Button>
+                                    </h3> 
+                                </Row>
+                                <Row>
+                                { showNewProject ? <NewProject
+                                    newProjectName={newProjectName}
+                                    setNewProjectName={setNewProjectName}
+                                    createProject={createProject}
+                                    hide={setShowNewProject}
+                                /> : null}
+                                </Row>
+                                <Row>
+                                    
+                                    <ProjectModule 
+                                        project={currentProject}
+                                        deleteClick={deleteProject}
+                                    />
+                            </Row>
                     </Col>
                     
                

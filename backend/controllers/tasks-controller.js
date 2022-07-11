@@ -38,10 +38,7 @@ tasks.get('/:id', async (req,res)=>{
 tasks.post('/', async (req,res)=>{
     try {
         let newTask =  await Tasks.create(req.body)
-        res.status(200).json({
-            message: "task created",
-            data: newTask
-        })
+        res.status(200).json(newTask)
     } catch (err) {
         res.status(500).json(err)
     }
@@ -66,6 +63,9 @@ tasks.delete('/:id', async (req,res)=>{
     try {
         let deletedTask = await Tasks.destroy({
             where: {task_id: req.params.id}
+        })
+        res.status(200).json({
+            message:`Task deleted`
         })
     } catch (err) {
         res.status(500).json(err)

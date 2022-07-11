@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 export default function ProjectCard(props){
     
         return (
-            <Card style={{width: '18rem'}} key={props.project.project_id}>
+            <Card style={{width: '18rem',height:`100%`,padding:'5px',marginLeft:'10px'}} key={props.project.project_id}>
                 <Card.Body>
                     <Card.Title>{props.project.title}</Card.Title>
                     <Card.Text>{props.project.desc}</Card.Text>

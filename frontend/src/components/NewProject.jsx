@@ -4,7 +4,7 @@ import {Card, Button, Row, Form, CloseButton} from 'react-bootstrap'
 
 export default function NewProjectModule(props){
     return (
-        <Card>
+        <Card style={{width:'85%'}}>
             <Card.Title>New Project <CloseButton onClick={()=>{props.hide(false)}}/></Card.Title>
             <Card.Body>
                 <Form onSubmit={props.createProject}>
