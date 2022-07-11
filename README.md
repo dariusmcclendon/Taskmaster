@@ -111,6 +111,16 @@ Seeders generated. Routes reorganized. Routes confirmed to function properly. RE
  - Changes to tasks table in backend : split Date Due into three rows (Day, Month, Year). Additional route added solely for login logic.
  - Fixed Errors regarding React imports, incorrect Hook usage, models missing rows.
 
+ ### 7/11/22
+ - ProjectCard factored into component.
+ - Added ProjectCarousel component.
+ - Added TaskList component.
+ - Added ProjectViewer page.
+ - Task CRUD functionality.
+ - Project CRUD functionality.
+
+ -- Planned Changes : Refactoring components to include CRUD functions to debloat projectviewer code.
+
 
 
 

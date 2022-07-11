@@ -1,40 +1,59 @@
 import React, { useState, useEffect } from 'react'
-import { ListGroup, Button, Accordion, Row, Col } from 'react-bootstrap'
+import { Button, Accordion, Row, Col, Placeholder} from 'react-bootstrap'
 
 export default function TaskList(props){
-    let listItems = props.tasks.map((task)=>{
+    let listItems = ''
+    function loadingList(){
         return (
-            <Accordion.Item eventKey={task.task_id}>
-                <Accordion.Header>{task.title}</Accordion.Header>
-                <Accordion.Body>
-                    <Row>
-                        {task.desc}
-                    </Row>
-                    <Row>
-                        <Col>
-                        <Button>
-                            Accept
-                        </Button>
-                        <Button>
-                            Complete
-                        </Button>
-                        <Button>
-                            Delete
-                        </Button>
-                        </Col>
-                    </Row>
-                    
-
-                </Accordion.Body>
-            </Accordion.Item>
+            <Col>
+            <h3>Loading...</h3>
+            <Placeholder as={Accordion.Item} animation="glow">
+                <Placeholder xs={8}/>
+            </Placeholder>
+            <Placeholder as={Accordion.Item} animation="glow">
+                <Placeholder xs={8}/>
+            </Placeholder>
+            <Placeholder as={Accordion.Item} animation="glow">
+                <Placeholder xs={8}/>
+            </Placeholder>
+            </Col>
         )
-    })
+    }
+    if(props.tasks){
+        listItems = props.tasks.map((task)=>{
+            return (
+                <Accordion.Item eventKey={task.task_id}>
+                    <Accordion.Header>{task.title}</Accordion.Header>
+                    <Accordion.Body>
+                        <Row>
+                            {task.desc}
+                        </Row>
+                        <Row>
+                            <Col>
+                            <Button>
+                                Accept
+                            </Button>
+                            <Button>
+                                Complete
+                            </Button>
+                            <Button>
+                                Delete
+                            </Button>
+                            </Col>
+                        </Row>
+                        
+    
+                    </Accordion.Body>
+                </Accordion.Item>
+            )
+        })
+    } else {
+        listItems = loadingList()
+    }
+    
     return (
-        <Col>
-        <h3>Tasks</h3>
         <Accordion defaultActiveKey='0'>
             {listItems}
         </Accordion>
-        </Col>
     )
 }
