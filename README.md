@@ -115,12 +115,15 @@ Seeders generated. Routes reorganized. Routes confirmed to function properly. RE
  - ProjectCard factored into component.
  - Added ProjectCarousel component.
  - Added TaskList component.
+ - Added GroupModule component.
+ - Added ProjectModule component.
  - Added ProjectViewer page.
  - Task CRUD functionality.
  - Project CRUD functionality.
  - Some styling.
 
  -- Planned Changes : Refactoring components to include CRUD functions to debloat projectviewer code.
+ -- Login / Signup logic move to backend. Authenticated branch begins here.
 
 
 

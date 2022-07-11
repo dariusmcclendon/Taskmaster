@@ -7,6 +7,9 @@ import TaskList from '../components/TaskList'
 import ProjectModule from '../components/ProjectModule'
 import NewProject from '../components/NewProject'
 import NewTask from '../components/NewTask'
+import GroupModule from '../components/GroupModule'
+
+
 export default function projectViewer(props){
     // State Variables
     let [currentProject,setCurrentProject] = useState(null) // Sets the current project to the project passed to the project viewer.
@@ -171,6 +174,7 @@ export default function projectViewer(props){
                     </Col>
                     
                     <Col id="project-col" className="h-100 px-2">
+                        
                             <Row>
                                     <h3>Manage  
                                         <Button variant='success' className='mx-2'
@@ -193,7 +197,12 @@ export default function projectViewer(props){
                                         project={currentProject}
                                         deleteClick={deleteProject}
                                     />
-                            </Row>
+                                </Row>
+                                <Row>
+                                <GroupModule
+                                    project={currentProject}
+                                    />
+                                </Row>
                     </Col>
                     
                

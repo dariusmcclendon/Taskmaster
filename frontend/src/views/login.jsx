@@ -29,7 +29,7 @@ export default function Login(props){
                 let result = await bcrypt.compareSync(inputPassword, pHash)
                 console.log(result)
                 if(result == true) {
-                let response = await fetch(`http://localhost:300/api/users/${inputUsername}`,{
+                let response = await fetch(`http://localhost:3000/api/users/${inputUsername}`,{
                     method: "GET",
                     header: {"Content-Type":"application/json"}
                 })
