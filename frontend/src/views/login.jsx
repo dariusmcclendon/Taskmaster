@@ -11,21 +11,33 @@ export default function Login(props){
     let [inputPassword, setPassword] = useState('')
     let [badAttempt, setBadAttempt] = useState(false)
     let [errMessage, setErrMessage] = useState('')
+    let navigate = useNavigate()
 
+
+    //Login validation function
     let validate = async(e)=>{
         e.preventDefault()
+        // try block for  password authentication
         try {
-            let pHash = await fetch(`http://localhost:3000/api/users/login/${inputUsername}`,{
-                method: "GET",
-                header: {"Content-Type":"application/json"}
-            })
+           
             if(inputUsername !== "" && inputPassword !== ""){
-                
-                let result = bcrypt.compare(pHash,inputPassword)
+                let response = await fetch(`http://localhost:3000/api/users/login/${inputUsername}`,{
+                    method: "GET",
+                    header: {"Content-Type":"application/json"}
+                })
+                let pHash = await response.json()
+                let result = await bcrypt.compareSync(inputPassword, pHash)
+                console.log(result)
                 if(result == true) {
-                
+                let response = await fetch(`http://localhost:300/api/users/${inputUsername}`,{
+                    method: "GET",
+                    header: {"Content-Type":"application/json"}
+                })
+                navigate('/dashboard')
+                console.log("Login successful")
                 } else {
                     setErrMessage("Incorrect Password.")
+                    console.log("Login failed.")
                 }
                 
             }

@@ -12,7 +12,7 @@ export default function Signup(props){
     let [passwordConfirm, setPasswordConfirm] = useState('')
     let [badAttempt, setBadAttempt] = useState(false)
     let [errMessage, setErrMessage] = useState('')
-
+    let navigate = useNavigate()
     let validate = async(e)=>{
         e.preventDefault()
         console.log(inputUsername,inputPassword)
@@ -31,7 +31,9 @@ export default function Signup(props){
                 })
             })
             let resData = await response.json()
-            
+            navigate('/dashboard')
+        } else {
+            setErrMessage('No username or password.')
         }
     }
     return (
