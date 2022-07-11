@@ -32,7 +32,15 @@ module.exports = (sequelize, DataTypes) => {
     allow_edit:
     { type : DataTypes.BOOLEAN,
       defaultValue : false
-    } 
+    },
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      }
   }, {
     sequelize,
     modelName: 'Groups',

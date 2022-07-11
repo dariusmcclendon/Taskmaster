@@ -45,16 +45,26 @@ users.get('/:name', async (req,res)=>{
         res.status(500).json(err)
     }
 })
+
+// GET route for searching for user by username, used for logging in.
+users.get('/login/:name', async(req,res)=>{
+    try {
+        let foundUser = await User.findOne({
+            where : {username: req.params.name}
+        })
+        res.status(200).json(foundUser.password)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
 // POST route for creating new user.
 users.post('/', async (req,res)=>{
     try {
         let newUser = await User.create(req.body) // create helper method for the User model.
-        res.status(200).json({
-            message: "user created",
-            data: newUser
-        })
+        res.status(200).json(newUser)
     } catch (err) {
         res.status(500).json(err)
+        console.log(err)
     }
 })
 

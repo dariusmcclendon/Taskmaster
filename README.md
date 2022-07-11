@@ -106,6 +106,12 @@ Link to PostgreSQL database established. Models and migrations completed.
 ### 7/09/22
 Seeders generated. Routes reorganized. Routes confirmed to function properly. README updated to include route documentation and discussion.
 
+### 7/10/22
+ - Frontend began. User Dashboard created. Login and Signup pages and simple bcrypt authentication. Contexts added. 
+ - Changes to tasks table in backend : split Date Due into three rows (Day, Month, Year). Additional route added solely for login logic.
+ - Fixed Errors regarding React imports, incorrect Hook usage, models missing rows.
+
+
 
 
 
