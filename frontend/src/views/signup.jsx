@@ -17,20 +17,20 @@ export default function Signup(props){
         e.preventDefault()
         console.log(inputUsername,inputPassword)
         if(inputUsername !== "" && inputPassword !== ""){
-            let encryptedPass = await bcrypt.hash(inputPassword, 10)
-            let response = await fetch('http://localhost:3000/api/users/',
+            let response = await fetch('http://localhost:3000/api/auth/signup',
             {
                 method : 'POST',
                 headers:{'Content-Type' : 'application/json'},
                 body : JSON.stringify({
                     username : inputUsername,
-                    password : encryptedPass,
+                    password : inputPassword,
                     display_name : inputUsername,
                     createdAt : new Date(),
                     updatedAt : new Date()
                 })
             })
             let resData = await response.json()
+            console.log('new user : ', resData)
             navigate('/dashboard')
         } else {
             setErrMessage('No username or password.')

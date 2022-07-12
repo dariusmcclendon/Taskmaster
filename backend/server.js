@@ -5,6 +5,7 @@ let app = express()
 let usersController = require('./controllers/users-controller')
 let projectsController = require('./controllers/projects-controller')
 let tasksController = require('./controllers/tasks-controller')
+let authController = require('./controllers/authentication')
 let cors = require('cors')
 // let { Sequelize } = require('sequelize')
 
@@ -29,3 +30,4 @@ app.listen(process.env.PORT,()=>{
 app.use('/api/users', usersController)
 app.use('/api/projects', projectsController)
 app.use('/api/tasks', tasksController)
+app.use('/api/auth',authController)
