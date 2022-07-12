@@ -1,7 +1,7 @@
 //imports
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Card, Container, Button, Carousel, Col, Row, Badge } from 'react-bootstrap'
-
+import {CurrentUser} from '../contexts/currentUser'
 import ProjectCarousel from '../components/ProjectCarousel'
 import TaskList from '../components/TaskList'
 import ProjectModule from '../components/ProjectModule'
@@ -11,6 +11,7 @@ import GroupModule from '../components/GroupModule'
 
 
 export default function projectViewer(props){
+    let {currentUser} = useContext(CurrentUser)
     // State Variables
     let [currentProject,setCurrentProject] = useState(null) // Sets the current project to the project passed to the project viewer.
     let [projects,setProjects] = useState([]) // Sets the projects
@@ -21,7 +22,7 @@ export default function projectViewer(props){
     let [newTaskName, setNewTaskName] = useState('') // Pass to New Task component
     let [taskFrequency, setTaskFrequency] = useState('')
     let [showNewTask, setShowNewTask] = useState(false)
-    
+    console.log(currentUser)
     // GET user's projects
     useEffect(()=>{
         let fetchData = async ()=>{
@@ -174,7 +175,6 @@ export default function projectViewer(props){
                     </Col>
                     
                     <Col id="project-col" className="h-100 px-2">
-                        
                             <Row>
                                     <h3>Manage  
                                         <Button variant='success' className='mx-2'

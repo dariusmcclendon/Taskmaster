@@ -1,8 +1,8 @@
 //imports
-import  React, { useState} from 'react'
+import  React, { useState, useContext} from 'react'
 import { Container, Form, Button} from 'react-bootstrap'
 import { Navigate, useNavigate } from 'react-router-dom'
-import bcrypt from 'bcryptjs'
+import {CurrentUser} from '../contexts/currentUser'
 
 //login page
 export default function Login(props){
@@ -15,6 +15,7 @@ export default function Login(props){
 
 
     //Login validation function
+    let {setCurrentUser} = useContext(CurrentUser)
     let credentials = {
             username : inputUsername,
             password : inputPassword }
@@ -25,14 +26,15 @@ export default function Login(props){
         try {
            
             if(inputUsername !== "" && inputPassword !== ""){
-                let response = await fetch(`http://localhost:3000/api/auth/login/${inputUsername}`,{
+                let response = await fetch(`http://localhost:3000/api/auth/login/`,{
                     method: 'POST',
+                    credentials:'include',
                     headers: {"Content-Type":"application/json"},
                     body: JSON.stringify(credentials)
                 })
                 const data = await response.json()
                 if(response.status === 200) {
-                   console.log(data.user)
+                    setCurrentUser(data.user)
                     navigate('/dashboard')
                 }
             }

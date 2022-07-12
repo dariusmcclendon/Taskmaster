@@ -1,23 +1,17 @@
 // Dashboard for viewing projects and tasks at a glance. Should populate projects and tasks via fetch request
 
 //imports
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import { Card, Container, Button } from 'react-bootstrap'
 import ProjectCard from '../components/ProjectCard'
 import ProjectCarousel from '../components/ProjectCarousel'
+import {CurrentUser} from '../contexts/currentUser'
 
 export default function Dashboard(props){
     // state variables
     let [projects, setProjects] = useState([])
     let [update, setUpdate] = useState(false)
-
-    // function for delete button
-    let deleteProject = async (id) =>{
-        await fetch(`http://localhost:3000/api/projects/${id}`,{
-            method : 'DELETE',
-            headers:{"Content-Type":'application/json'}
-        })
-    }
+    
     // runs fetch request for user's projects
     useEffect(()=>{
         let fetchData = async ()=>{

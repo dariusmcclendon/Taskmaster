@@ -13,8 +13,7 @@ auth.post('/signup', async (req,res)=>{
     res.json(newUser)
 })
 
-auth.post('/login/:username', async (req,res)=>{
-    console.log(req.body)
+auth.post('/login/', async (req,res)=>{
     let user = await User.findOne({
         where: {username: req.body.username}
     })
@@ -23,7 +22,34 @@ auth.post('/login/:username', async (req,res)=>{
             message: `Incorrect username or password.`
         })
     } else {
+        req.session.user_id = user.user_id
         res.status(200).json({user})
+    }
+})
+
+auth.post('/signout/', async (req,res)=>{
+    req.session.user_id = null
+    res.status(200).json({message:'signed out'})
+})
+auth.get('/profile', async (req,res)=>{
+    console.log(req.session.user_id)
+    try {
+        let user = await User.findOne({
+            where : { user_id : req.session.user_id }
+        })
+        if(!user){
+            res.status(500).json(null)
+        } else {
+            let {password, ...rest} = user
+            console.log('sent user : ' , user)
+            res.status(200).json(rest)
+        }
+        
+    } catch (err) {
+        res.status(404).json({
+            message: `En error occured.`
+        })
+        console.log(err)
     }
 })
 

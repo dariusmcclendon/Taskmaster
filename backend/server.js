@@ -2,6 +2,7 @@
 // DEPENDENCIES
 let express = require('express')
 let app = express()
+let cookieSession = require('cookie-session')
 let usersController = require('./controllers/users-controller')
 let projectsController = require('./controllers/projects-controller')
 let tasksController = require('./controllers/tasks-controller')
@@ -11,9 +12,17 @@ let cors = require('cors')
 
 // CONFIG
 require('dotenv').config()
-app.use(cors())
+app.use(cors({
+    origin:'http://localhost:3001',
+    credentials: true
+}))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cookieSession({
+    name:'session',
+    keys: [process.env.SESSION_SECRET],
+    maxAge: 24 * 60 * 60 * 1000
+}))
 
 
 // ROOT

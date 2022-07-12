@@ -1,23 +1,61 @@
-import React from 'react'
+import React, {useEffect, useContext} from 'react'
 import {Nav, Navbar, Button, Container} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import {CurrentUser} from '../contexts/currentUser'
 
 export default function Header(props){
-    return (
-        <div>
-            <Navbar bg="light" expand="lg">
-                <Container>
-                    <Navbar.Brand href='#home'>Taskmaster Non-Auth Branch</Navbar.Brand>
-                    <Navbar.Toggle aria-controls='basic-navbar-nav'/>
-                    <Navbar.Collapse id='basic-navbar-nav'>
-                        <Nav className='me-auto'>
-                            <Nav.Link href='#home'>Home</Nav.Link>
-                            <Nav.Link href='#projects'>Projects</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                    
-                </Container>
-            </Navbar>
-        </div>
-    )
+    let {currentUser} = useContext(CurrentUser)
+    let{setCurrentUser} = useContext(CurrentUser)
+    let navigate = useNavigate()
+    let logout = async ()=>{
+        let response = await fetch(`http://localhost:3000/api/auth/signout`,{
+            method: 'POST',
+            header : {'Content-Type':'application/json'},
+            credentials : 'include'
+        })
+        setCurrentUser(null)
+        navigate('/login')
+    }
+    if(currentUser===null){
+        return (
+            <div>
+                <Navbar bg="light" expand="lg">
+                    <Container>
+                        <Navbar.Brand href='/home'>Taskmaster Auth Branch</Navbar.Brand>
+                        <Navbar.Toggle aria-controls='basic-navbar-nav'/>
+                        <Navbar.Collapse id='basic-navbar-nav'>
+                            <Nav className='me-auto'>
+                                <Nav.Link href='#home'>Home</Nav.Link>
+                                <Nav.Link href='/projects'>Projects</Nav.Link>
+                            </Nav>
+                            <Nav.Link href='/login'>Login</Nav.Link>
+                            <Nav.Link href='/signup'><Button>Sign Up</Button></Nav.Link>
+                        </Navbar.Collapse>
+                        
+                    </Container>
+                </Navbar>
+            </div>
+        )
+    }else if(currentUser){
+        return (
+            <div>
+                <Navbar bg="light" expand="lg">
+                    <Container>
+                        <Navbar.Brand href='/home'>Taskmaster Auth Branch</Navbar.Brand>
+                        <Navbar.Toggle aria-controls='basic-navbar-nav'/>
+                        <Navbar.Collapse id='basic-navbar-nav'>
+                            <Nav className='me-auto'>
+                                <Nav.Link href='#home'>Home</Nav.Link>
+                                <Nav.Link href='/projects'>Projects</Nav.Link>
+                            </Nav>
+                           { currentUser ?  
+                           <Button onClick={()=>{logout()}}>Logout</Button> : null}
+                        </Navbar.Collapse>
+                        
+                    </Container>
+                </Navbar>
+            </div>
+        )
+    }
+    
 }
