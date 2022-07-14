@@ -70,7 +70,7 @@ export default function TaskList(props){
                     <Accordion.Item eventKey={task.task_id}>
                         <Accordion.Header>{task.title} | Due : {taskDueString}</Accordion.Header>
                         <Accordion.Body>
-                            <Row>
+                            <Row className='mb-3'>
                                 {task.desc}
                             </Row>
                             {showEdit == task.task_id ? 
@@ -78,7 +78,7 @@ export default function TaskList(props){
                                 <EditTask task={task} show={setShowEdit} fetchTasks={props.fetchTasks} currentProject={props.currentProject}/>
                             </Row> : null}
                             <Row>
-                                <ButtonToolbar>
+                                <ButtonToolbar className='justify-content-end'>
                                     <ButtonGroup className="me-2">
                                         {currentUser.user_id != task.assigned ? <Button onClick={()=>{acceptTask(task.task_id)}}>
                                             Accept

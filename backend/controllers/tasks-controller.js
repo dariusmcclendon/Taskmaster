@@ -40,6 +40,7 @@ tasks.post('/', async (req,res)=>{
         let newTask =  await Tasks.create(req.body)
         res.status(200).json(newTask)
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 })

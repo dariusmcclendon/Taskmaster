@@ -9,6 +9,7 @@ export default function NewTaskModule(props){
     let {currentUser} = useContext(CurrentUser)
     let [newTaskName, setNewTaskName] = useState('')
     let [taskFrequency, setTaskFrequency] = useState('')
+    let [taskDesc, setTaskDesc] = useState('')
     let [taskDate, setTaskDate] = useState(new Date())
 
     let createTask = async(e)=>{
@@ -19,6 +20,7 @@ export default function NewTaskModule(props){
                     project_id: props.currentProject.project_id,
                     frequency : taskFrequency,
                     dueDate : taskDate,
+                    desc : taskDesc,
                     assigned: currentUser.user_id,
                     creator: currentUser.user_id,
                     createdAt: new Date(),
@@ -31,6 +33,8 @@ export default function NewTaskModule(props){
                 body: JSON.stringify(settings)
             })
             let reply = await response.json()
+            console.log(reply)
+            props.show(false)
             props.fetchTasks(props.currentProject)
         } catch(err){
             console.log(err)
@@ -39,12 +43,13 @@ export default function NewTaskModule(props){
 
     return (
         <Container>
-            <Row>
+            <Row className="mb-4">
                 New Task  <CloseButton onClick={()=>{props.show(false)}}/>
             </Row>
             <Row>
             <Form onSubmit={createTask}>
-                    <Form.Group controlId="taskName">
+                    <Form.Group controlId="taskName" className="mb-2">
+                        <Form.Label>Name</Form.Label>
                         <Form.Control
                             placeholder="Task Name"
                             value={newTaskName}
@@ -53,16 +58,28 @@ export default function NewTaskModule(props){
                         </Form.Control>
                        
                     </Form.Group>
-                    <Form.Select 
-                        onChange={e=>{setTaskFrequency(e.target.value)}}
-                        value={taskFrequency}>
-                            <option>Frequency</option>
-                            <option value='once'>Once</option>
-                            <option value='daily'>Daily</option>
-                            <option value='weekly'>Weekly</option>
-                            <option value='monthly'>Monthly</option>
-                    </Form.Select>
-                    <Calendar onChange={setTaskDate} value={taskDate}/>
+                    <Form.Group controlId='taskDesc' className="mb-2">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control
+                            placeholder="Task description"
+                            value={taskDesc}
+                            onChange={e=>{setTaskDesc(e.target.value)}}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-2">
+                        <Form.Label>Frequency</Form.Label>
+                        <Form.Select 
+                            onChange={e=>{setTaskFrequency(e.target.value)}}
+                            value={taskFrequency}
+                        >
+                                <option value={1}>Once</option>
+                                <option value={2}>Daily</option>
+                                <option value={3}>Weekly</option>
+                                <option value={4}>Monthly</option>
+                        </Form.Select>
+                    </Form.Group>
+                    
+                    <Calendar onChange={setTaskDate} value={taskDate} className="mb-2"/>
                     <Button type="submit">
                        Create Task
                     </Button>

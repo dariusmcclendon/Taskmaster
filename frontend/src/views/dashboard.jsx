@@ -13,6 +13,7 @@ export default function Dashboard(props){
     let [projects, setProjects] = useState([])
     let [tasks, setTasks] = useState([])
     let [dueToday, setDueToday] = useState([])
+    let [upComing, setUpcoming] = useState([])
     let [update, setUpdate] = useState(false)
     let {currentUser} = useContext(CurrentUser)
     let navigate = useNavigate()
@@ -42,6 +43,11 @@ export default function Dashboard(props){
                     return (taskDate.getDate() == date.getDate() && taskDate.getMonth() == date.getMonth())
         })
         setDueToday(dueDay) // set DueToday to the new dueDay array
+        let isComing = data.filter((task)=>{
+            let taskDate = new Date(task.dueDate)
+                return (taskDate.getDate() <= (date.getDate()+7))
+        })
+        setUpcoming(isComing)
     } // end FetchTasks
 
     // Function to pass to ProjectCarousel. Sets currentProject to the project clicked and redirects user to the project board.
@@ -68,7 +74,7 @@ export default function Dashboard(props){
                     </Col>
                     <Col>
                         <h4>Upcoming</h4>
-                        <TaskList/>
+                        <TaskList tasks={upComing}/>
                     </Col>
                 </Row>
             </Container>

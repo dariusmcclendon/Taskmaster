@@ -28,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
       { type: DataTypes.TEXT,
       },
     frequency:
-      { type: DataTypes.ENUM('once','daily','weekly','monthly'),
-        defaultValue: 'once'
+      { type: DataTypes.INTEGER,
+        defaultValue: 1
       },
       dueDate :
       {

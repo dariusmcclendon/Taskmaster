@@ -1,6 +1,6 @@
 
 import React, {useState, useEffect} from 'react'
-import {Card, Button, ButtonGroup, Col, Form, CloseButton} from 'react-bootstrap'
+import {Card, Button, ButtonGroup, Col, Form, CloseButton, Modal} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
 //module used to create projects and manage current project,including editing, deleting, adding groups, adding tasks
@@ -28,9 +28,11 @@ export default function EditProjectModule(props){
         }
     }
    return (
-    <Card style={{width:'85%'}}>
-            <Card.Title>New Project <CloseButton onClick={()=>{props.show(false)}}/></Card.Title>
-            <Card.Body>
+    <Modal.Dialog>
+            <Modal.Header closeButton>
+                <Modal.Title>Edit Project</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
                 <Form onSubmit={updateProject}>
                     <Form.Group controlId="projectName">
                         <Form.Label>Project Name</Form.Label>
@@ -47,7 +49,7 @@ export default function EditProjectModule(props){
                     </Form.Group>
                     <Button variant='warning' type='submit'>Update</Button>
                 </Form>
-            </Card.Body>
-        </Card>       
+            </Modal.Body>
+        </Modal.Dialog>       
    )
 }
