@@ -101,6 +101,9 @@ Collaborators will be able to assign themselves tasks in a project they are auth
  -- Refactoring components to include CRUD functions to debloat projectviewer code.
  -- Fetch routes rewritten to include user_id in order to eliminate wholesale fetching of database.
 
+### Known Issues
+ -- ProjectViewer resets to first project passed in fetch request when creating a new task. 
+    -- Resolved by adding e.preventDefault() to createTask function (projectviewer, line 125)
 
 ### 7/05/22
 Project created. Repo created on GitHub. Express App skeleton made. Controllers, etc.
@@ -131,6 +134,8 @@ Seeders generated. Routes reorganized. Routes confirmed to function properly. RE
  ## 7/12/22
  - Login / Signup successfully moved to backend. Session authentication and user persistence on the browser.
 
+## 7/13/22
+ - Dashboard populates Tasks due today. Refactored code to push certain CRUD functions to the components that use them in different pages.
 
 
 

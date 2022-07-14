@@ -1,22 +1,23 @@
 import React, { createContext, useState, useEffect } from "react";
 
-
+//CurrentUser contexts provides currently logged in user to persist session
 export const CurrentUser = createContext()
 
 function CurrentUserProvider({ children }) {
 
     const [currentUser, setCurrentUser] = useState(null)
-
+    
     useEffect(() => {
-        console.log('fetching user')
-        const getLoggedInUser = async () => {
+        //logging
+        let getLoggedInUser = async ()=>{
+            console.log('fetching user')
             let response = await fetch('http://localhost:3000/api/auth/profile', {
                 credentials: 'include'
             })
             let user = await response.json()
             console.log(user)
             setCurrentUser(user)
-            
+            //add the user object to localStorage
         }
         getLoggedInUser()
     }, [])

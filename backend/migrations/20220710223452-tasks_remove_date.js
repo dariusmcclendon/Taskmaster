@@ -6,6 +6,9 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-   await queryInterface.addColumn('Tasks','dueDate')
+   await queryInterface.addColumn('Tasks','dueDate',{
+    type : Sequelize.DATE,
+    defaultValue : new Date()
+   })
   }
 };

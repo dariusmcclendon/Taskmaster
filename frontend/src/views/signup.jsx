@@ -2,7 +2,7 @@
 import  React, { useState } from 'react'
 import { Container, Form, Button} from 'react-bootstrap'
 import { Navigate, useNavigate } from 'react-router-dom'
-import bcrypt from 'bcryptjs'
+
 
 //login page
 export default function Signup(props){

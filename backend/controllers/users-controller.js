@@ -108,7 +108,8 @@ users.get('/:id/projects', async (req,res)=>{
 
 
 // GET route for finding tasks by assigned user.
-users.get('tasks/assigned/:id', async (req,res)=>{
+users.get('/:id/tasks/assigned/', async (req,res)=>{
+    console.log('fetching assigned tasks for a user')
     try {
         let foundTasks = await Tasks.findAll({
             where : { assigned: req.params.id }
@@ -120,7 +121,7 @@ users.get('tasks/assigned/:id', async (req,res)=>{
 })
 
 // GET route for finding tasks by creator.
-users.get('tasks/created/:id', async (req,res)=>{
+users.get('/:id/tasks/created/', async (req,res)=>{
     try {
         let foundTasks = await Tasks.findAll({
             where : { creator: req.params.id }

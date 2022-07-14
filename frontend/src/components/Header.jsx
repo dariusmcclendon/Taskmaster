@@ -14,6 +14,7 @@ export default function Header(props){
             credentials : 'include'
         })
         setCurrentUser(null)
+        localStorage.clear()
         navigate('/login')
     }
     if(currentUser===null){
@@ -25,8 +26,7 @@ export default function Header(props){
                         <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                         <Navbar.Collapse id='basic-navbar-nav'>
                             <Nav className='me-auto'>
-                                <Nav.Link href='#home'>Home</Nav.Link>
-                                <Nav.Link href='/projects'>Projects</Nav.Link>
+                                
                             </Nav>
                             <Nav.Link href='/login'>Login</Nav.Link>
                             <Nav.Link href='/signup'><Button>Sign Up</Button></Nav.Link>
@@ -41,15 +41,15 @@ export default function Header(props){
             <div>
                 <Navbar bg="light" expand="lg">
                     <Container>
-                        <Navbar.Brand href='/home'>Taskmaster Auth Branch</Navbar.Brand>
+                        <Navbar.Brand href='/home'>Taskmaster Auth Branch || {currentUser.display_name}</Navbar.Brand>
                         <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                         <Navbar.Collapse id='basic-navbar-nav'>
                             <Nav className='me-auto'>
-                                <Nav.Link href='#home'>Home</Nav.Link>
+                                <Nav.Link href='/dashboard'>Home</Nav.Link>
                                 <Nav.Link href='/projects'>Projects</Nav.Link>
                             </Nav>
                            { currentUser ?  
-                           <Button onClick={()=>{logout()}}>Logout</Button> : null}
+                           <Button onClick={logout}>Logout</Button> : null}
                         </Navbar.Collapse>
                         
                     </Container>

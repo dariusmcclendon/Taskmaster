@@ -1,8 +1,12 @@
 //imports
-import React from 'react'
+import React , {useContext} from 'react'
 import {Card, Button, Row, Form, CloseButton} from 'react-bootstrap'
+import {CurrentUser} from '../contexts/currentUser'
 
+// Module used to create new projects
 export default function NewProjectModule(props){
+    // context usage
+    
     return (
         <Card style={{width:'85%'}}>
             <Card.Title>New Project <CloseButton onClick={()=>{props.hide(false)}}/></Card.Title>

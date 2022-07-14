@@ -31,17 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       { type: DataTypes.ENUM('once','daily','weekly','monthly'),
         defaultValue: 'once'
       },
-      day:
-      { type: DataTypes.INTEGER,
-        allowNull: true
-      },
-      month:
-      { type: DataTypes.INTEGER,
-        allowNull: true
-      },
-      year:
-      { type: DataTypes.INTEGER,
-        allowNull: true
+      dueDate :
+      {
+        type: DataTypes.DATE,
+        defaultValue: new Date()
       },
     project_id:
       { type: DataTypes.INTEGER,

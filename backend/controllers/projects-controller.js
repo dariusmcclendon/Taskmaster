@@ -59,8 +59,12 @@ projects.delete('/:id', async (req,res)=>{
         let deletedProject = await Projects.destroy({
             where: { project_id: req.params.id }
         })
+        let deletedTasks = await Tasks.destroy({
+            where: {project_id: req.params.id }
+        })
         res.status(200).json({message: "project deleted"})
         console.log(`project deleted : ${deletedProject}`)
+        console.log(`Tasks deleted : ${deletedTasks}`)
     } catch (err) {
         res.status(500).json(err)
     }

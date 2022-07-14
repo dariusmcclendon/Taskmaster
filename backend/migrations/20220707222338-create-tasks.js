@@ -21,7 +21,7 @@ module.exports = {
       },
       dueDate: {
         type: Sequelize.DATE,
-        allowNull: false
+        defaultValue: new Date()
       },
       project_id: {
         type: Sequelize.INTEGER,

@@ -1,8 +1,46 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Accordion, Row, Col, Placeholder} from 'react-bootstrap'
-
+import React, {useState,useContext} from 'react'
+import { Button, ButtonGroup, ButtonToolbar, Accordion, Row, Col, Placeholder} from 'react-bootstrap'
+import {CurrentUser} from '../contexts/currentUser'
+import EditTask from './EditTask'
 export default function TaskList(props){
+    // useContexts
+    let {currentUser} = useContext(CurrentUser)
+    // State variables
+    let [showEdit,setShowEdit] = useState(null)
+
+    // listItem storage variable
     let listItems = ''
+
+    // function for accepting a task
+    let acceptTask = async(id)=>{
+        try { 
+            let response = await fetch(`http://localhost:3000/api/tasks/${id}`,{
+            method:'PUT',
+            headers:{'Content-Type':'application/json'},
+            body: {
+                assigned : currentUser.user_id
+            }
+        })
+        console.log('task has been reassigned')
+        } catch (err) {
+
+        }
+    }
+    // function for task delete buttons
+    let deleteTask = async(id)=>{
+        try {
+            let response = await fetch(`http://localhost:3000/api/tasks/${id}`,{
+                method: 'DELETE',
+                headers: {'Content-Type':'application/json'}
+            })
+            let reply = await response.json()
+            console.log(reply)
+            props.fetchTasks(props.currentProject)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    // Placeholder for list while loading
     function loadingList(){
         return (
             <Col>
@@ -19,38 +57,53 @@ export default function TaskList(props){
             </Col>
         )
     }
-    if(props.tasks.length !== 0){
-        listItems = props.tasks.map((task)=>{
+    if(props.tasks){ //Check to see if a tasks property has been passed
+        if(props.tasks[0] == undefined){ //Check to see if the task array is empty
             return (
-                <Accordion.Item eventKey={task.task_id}>
-                    <Accordion.Header>{task.title}</Accordion.Header>
-                    <Accordion.Body>
-                        <Row>
-                            {task.desc}
-                        </Row>
-                        <Row>
-                            <Col>
-                            <Button>
-                                Accept
-                            </Button>
-                            <Button>
-                                Complete
-                            </Button>
-                            <Button onClick={()=>{props.delete(task.task_id)}}>
-                                Delete
-                            </Button>
-                            </Col>
-                        </Row>
-                        
-    
-                    </Accordion.Body>
-                </Accordion.Item>
+                <h4>No tasks.</h4>
             )
-        })
-    } else if(props.tasks.length == 0){
-        return (
-            <h4>No tasks.</h4>
-        )
+        } else {
+            listItems = props.tasks.map((task)=>{
+                let taskDate = new Date(task.dueDate)
+                let taskDueString = `${taskDate.getMonth()+1}/${taskDate.getDate()}/${taskDate.getFullYear()}`
+                return (
+                    <Accordion.Item eventKey={task.task_id}>
+                        <Accordion.Header>{task.title} | Due : {taskDueString}</Accordion.Header>
+                        <Accordion.Body>
+                            <Row>
+                                {task.desc}
+                            </Row>
+                            {showEdit == task.task_id ? 
+                            <Row className='me-2'>
+                                <EditTask task={task} show={setShowEdit} fetchTasks={props.fetchTasks} currentProject={props.currentProject}/>
+                            </Row> : null}
+                            <Row>
+                                <ButtonToolbar>
+                                    <ButtonGroup className="me-2">
+                                        {currentUser.user_id != task.assigned ? <Button onClick={()=>{acceptTask(task.task_id)}}>
+                                            Accept
+                                        </Button> : null }
+                                        {currentUser.user_id == task.assigned ? <Button>
+                                            Complete
+                                        </Button> : null}
+                                    </ButtonGroup>
+                                    
+                                {currentUser.user_id == task.creator ? 
+                                <ButtonGroup className="me-2">
+                                        <Button variant='warning' onClick={()=>{setShowEdit(task.task_id)}}>Edit</Button>
+                                        <Button variant='danger' onClick={()=>{deleteTask(task.task_id)}}>Delete</Button>  
+                                </ButtonGroup>
+                                : null }
+                                </ButtonToolbar>
+                            </Row>
+                            
+        
+                        </Accordion.Body>
+                    </Accordion.Item>
+                )
+            })
+        }
+        
     } else {
         listItems = loadingList()
     }

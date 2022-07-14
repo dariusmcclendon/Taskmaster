@@ -40,9 +40,11 @@ auth.get('/profile', async (req,res)=>{
         if(!user){
             res.status(500).json(null)
         } else {
-            let {password, ...rest} = user
-            console.log('sent user : ' , user)
-            res.status(200).json(rest)
+            let sentUser = {
+                user_id : user.user_id,
+                display_name : user.display_name
+            }
+            res.status(200).json(sentUser)
         }
         
     } catch (err) {
