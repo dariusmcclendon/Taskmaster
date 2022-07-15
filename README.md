@@ -135,7 +135,8 @@ Seeders generated. Routes reorganized. Routes confirmed to function properly. RE
 
 ## 7/14/22
  - Layout changes. Upcoming Tasks added to Dashboard. (note: unable to edit tasks from dashboard.)
-
+ - Group functionality moved to different branch
+ - Styling.
 
 
 

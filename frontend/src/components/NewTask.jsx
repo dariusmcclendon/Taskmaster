@@ -8,7 +8,6 @@ export default function NewTaskModule(props){
     // state variables
     let {currentUser} = useContext(CurrentUser)
     let [newTaskName, setNewTaskName] = useState('')
-    let [taskFrequency, setTaskFrequency] = useState('')
     let [taskDesc, setTaskDesc] = useState('')
     let [taskDate, setTaskDate] = useState(new Date())
 
@@ -18,7 +17,6 @@ export default function NewTaskModule(props){
             let settings = {
                     title: newTaskName,
                     project_id: props.currentProject.project_id,
-                    frequency : taskFrequency,
                     dueDate : taskDate,
                     desc : taskDesc,
                     assigned: currentUser.user_id,
@@ -66,19 +64,6 @@ export default function NewTaskModule(props){
                             onChange={e=>{setTaskDesc(e.target.value)}}
                         />
                     </Form.Group>
-                    <Form.Group className="mb-2">
-                        <Form.Label>Frequency</Form.Label>
-                        <Form.Select 
-                            onChange={e=>{setTaskFrequency(e.target.value)}}
-                            value={taskFrequency}
-                        >
-                                <option value={1}>Once</option>
-                                <option value={2}>Daily</option>
-                                <option value={3}>Weekly</option>
-                                <option value={4}>Monthly</option>
-                        </Form.Select>
-                    </Form.Group>
-                    
                     <Calendar onChange={setTaskDate} value={taskDate} className="mb-2"/>
                     <Button type="submit">
                        Create Task

@@ -26,7 +26,7 @@ export default function ProjectViewer(props) {
     // initial fetch of user's projects.
     useEffect(() => {
         fetchData()
-    }, [currentUser, update])
+    }, [currentUser, update, currentProject])
     // GET full data
     let fetchData = async () => {
         if (currentUser) {

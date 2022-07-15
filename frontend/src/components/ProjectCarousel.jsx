@@ -12,7 +12,7 @@ export default function ProjectCarousel(props){
             )
         })
         return (
-            <Container fluid className='d-flex flex-row flex-nowrap overflow-auto border-bottom border-top border-dark pt-3 pb-3 m-2'>
+            <Container className='d-flex flex-row flex-nowrap overflow-auto  pb-3 m-2'>
                 
                     {projectCards}
         

@@ -8,8 +8,7 @@ export default function EditTaskModule(props){
     // state variables
     let {currentUser} = useContext(CurrentUser)
     let [newTaskName, setNewTaskName] = useState('')
-    let [taskFrequency, setTaskFrequency] = useState('')
-    let [taskDate, setTaskDate] = useState('')
+    let [taskDate, setTaskDate] = useState(new Date())
     let [taskDesc, setTaskDesc] = useState('')
 
     let updateTask = async(e)=>{
@@ -18,7 +17,6 @@ export default function EditTaskModule(props){
             let settings = {
                     title: newTaskName,
                     project_id: props.currentProject.project_id,
-                    frequency : taskFrequency,
                     desc : taskDesc,
                     dueDate : taskDate,
                     creator: currentUser.user_id,
@@ -32,7 +30,7 @@ export default function EditTaskModule(props){
             })
             let reply = await response.json()
             props.fetchTasks(props.currentProject)
-            props.show(null)
+            props.show(false)
         } catch(err){
             console.log(err)
         }
@@ -59,18 +57,6 @@ export default function EditTaskModule(props){
                         <Form.Control
                             value={taskDesc}
                             onChange={e=>{setTaskDesc(e.target.value)}}/>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Task Frequency</Form.Label>
-                        <Form.Select 
-                            onChange={e=>{setTaskFrequency(e.target.value)}}
-                            value={taskFrequency}>
-                                <option>Frequency</option>
-                                <option value='once'>Once</option>
-                                <option value='daily'>Daily</option>
-                                <option value='weekly'>Weekly</option>
-                                <option value='monthly'>Monthly</option>
-                        </Form.Select>
                     </Form.Group>
                     
                     <Calendar onChange={setTaskDate} value={taskDate}/>

@@ -17,10 +17,13 @@ export default function EditProjectModule(props){
                 headers : {'Content-Type':'application/json'},
                 body : JSON.stringify( {
                     title : inTitle,
-                    desc : inDesc
+                    desc : inDesc,
+                    updatedAt: new Date()
                 })
             })
+            
             let reply = await response.json()
+            console.log(reply)
             props.setCurrentProject(reply)
             
         } catch (err) {

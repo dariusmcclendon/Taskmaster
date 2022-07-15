@@ -19,6 +19,7 @@ tasks.get('/', async (req,res)=>{
         res.status(200).json(foundTasks)
     } catch (err) {
         res.status(500).json(err)
+        console.log(err)
     }
 })
 
@@ -31,6 +32,7 @@ tasks.get('/:id', async (req,res)=>{
         res.status(200).json(foundTask)
     } catch (err) {
         res.status(500).json(err)
+        console.log(err)
     }
 })
 
@@ -42,6 +44,7 @@ tasks.post('/', async (req,res)=>{
     } catch (err) {
         console.log(err)
         res.status(500).json(err)
+        console.log(err)
     }
 })
 
@@ -56,6 +59,7 @@ tasks.put('/:id', async (req,res)=>{
         })
     } catch (err) {
         res.status(500).json(err)
+        console.log(err)
     }
 })
 
@@ -70,6 +74,7 @@ tasks.delete('/:id', async (req,res)=>{
         })
     } catch (err) {
         res.status(500).json(err)
+        console.log(err)
     }
 })
 

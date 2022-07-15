@@ -21,7 +21,7 @@ export default function Header(props){
         return (
             <div>
                 <Navbar bg="light" expand="lg">
-                    <Container>
+                    <Container fluid>
                         <Navbar.Brand href='/home'>Taskmaster Auth Branch</Navbar.Brand>
                         <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                         <Navbar.Collapse id='basic-navbar-nav'>
@@ -40,7 +40,7 @@ export default function Header(props){
         return (
             <div>
                 <Navbar bg="light" expand="lg">
-                    <Container>
+                    <Container fluid>
                         <Navbar.Brand href='/home'>Taskmaster Auth Branch || {currentUser.display_name}</Navbar.Brand>
                         <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                         <Navbar.Collapse id='basic-navbar-nav'>
@@ -51,7 +51,6 @@ export default function Header(props){
                            { currentUser ?  
                            <Button onClick={logout}>Logout</Button> : null}
                         </Navbar.Collapse>
-                        
                     </Container>
                 </Navbar>
             </div>

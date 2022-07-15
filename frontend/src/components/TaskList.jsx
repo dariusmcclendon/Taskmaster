@@ -1,5 +1,5 @@
 import React, {useState,useContext} from 'react'
-import { Button, ButtonGroup, ButtonToolbar, Accordion, Row, Col, Placeholder} from 'react-bootstrap'
+import { Button, ButtonGroup, ButtonToolbar, Accordion, Row, Col, Placeholder, Badge} from 'react-bootstrap'
 import {CurrentUser} from '../contexts/currentUser'
 import EditTask from './EditTask'
 export default function TaskList(props){
@@ -17,13 +17,24 @@ export default function TaskList(props){
             let response = await fetch(`http://localhost:3000/api/tasks/${id}`,{
             method:'PUT',
             headers:{'Content-Type':'application/json'},
-            body: {
-                assigned : currentUser.user_id
-            }
+            body: JSON.stringify({assigned : currentUser.user_id})
+    
         })
         console.log('task has been reassigned')
         } catch (err) {
 
+        }
+    }
+    let completeTask = async(id)=>{
+        try {
+            let response = await fetch(`http://localhost:3000/api/tasks/${id}`,{
+                method:'PUT',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({complete : true})
+            })
+            props.fetchTasks(props.currentProject)
+        } catch (err) {
+            console.log(err)
         }
     }
     // function for task delete buttons
@@ -67,9 +78,11 @@ export default function TaskList(props){
                 let taskDate = new Date(task.dueDate)
                 let taskDueString = `${taskDate.getMonth()+1}/${taskDate.getDate()}/${taskDate.getFullYear()}`
                 return (
-                    <Accordion.Item eventKey={task.task_id}>
-                        <Accordion.Header>{task.title} | Due : {taskDueString}</Accordion.Header>
-                        <Accordion.Body>
+                    <Accordion.Item  eventKey={task.task_id} >
+                        <Accordion.Header>
+                            <p className='m-0'>{task.title} | Due : {taskDueString} {task.complete ? <Badge bg='success'>Complete</Badge> : <Badge bg='danger'>Incomplete</Badge>}</p>
+                            </Accordion.Header>
+                        <Accordion.Body >
                             <Row className='mb-3'>
                                 {task.desc}
                             </Row>
@@ -83,17 +96,17 @@ export default function TaskList(props){
                                         {currentUser.user_id != task.assigned ? <Button onClick={()=>{acceptTask(task.task_id)}}>
                                             Accept
                                         </Button> : null }
-                                        {currentUser.user_id == task.assigned ? <Button>
+                                        {currentUser.user_id == task.assigned && task.complete == false ? <Button onClick={()=>{completeTask(task.task_id)}}>
                                             Complete
                                         </Button> : null}
+                                        {currentUser.user_id == task.creator ?
+                                            <><Button variant='warning' onClick={()=>{setShowEdit(task.task_id)}}>Edit</Button>
+                                            <Button variant='danger' onClick={()=>{deleteTask(task.task_id)}}>Delete</Button>  </> 
+                                            : null }
+                                                
                                     </ButtonGroup>
                                     
-                                {currentUser.user_id == task.creator ? 
-                                <ButtonGroup className="me-2">
-                                        <Button variant='warning' onClick={()=>{setShowEdit(task.task_id)}}>Edit</Button>
-                                        <Button variant='danger' onClick={()=>{deleteTask(task.task_id)}}>Delete</Button>  
-                                </ButtonGroup>
-                                : null }
+                                
                                 </ButtonToolbar>
                             </Row>
                             

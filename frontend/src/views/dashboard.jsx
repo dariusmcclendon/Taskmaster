@@ -56,8 +56,10 @@ export default function Dashboard(props){
     }
 
     return (
-        <Container className='dashboard'>
-            <h2>Dashboard</h2>
+        <Container fluid className='dashboard bg-light'>
+            <Row className='text-light bg-dark rounded-left'>
+                <h2>Dashboard</h2>
+            </Row>
             <Row>
                 <Container fluid>
                     <h3>Your Projects</h3>
@@ -65,8 +67,11 @@ export default function Dashboard(props){
                 </Container>
             </Row>
            
-            <Container fluid>
-                <h3>Tasks</h3>
+            
+                <Row className=' mb-3 text-light bg-dark rounded-left'>
+                    <h3 >Tasks</h3>
+                </Row>
+                
                 <Row>
                     <Col>
                         <h4>Due Today</h4>
@@ -74,10 +79,10 @@ export default function Dashboard(props){
                     </Col>
                     <Col>
                         <h4>Upcoming</h4>
-                        <TaskList tasks={upComing}/>
+                        <TaskList tasks={upComing} fetchTasks={fetchTasks}/>
                     </Col>
                 </Row>
-            </Container>
+            
             
         </Container>
     )

@@ -13,6 +13,7 @@ projects.get('/', async (req,res)=>{
         let foundProjects = await Projects.findAll()
         res.status(200).json(foundProjects)
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
 
     }
@@ -26,6 +27,7 @@ projects.get('/:id', async (req,res)=>{
         })
         res.status(200).json(foundSpecificProject)
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 })
@@ -38,6 +40,7 @@ projects.post('/', async (req,res)=>{
             data: newProject
         })
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 })
@@ -45,10 +48,13 @@ projects.post('/', async (req,res)=>{
 // PUT route for updating a project
 projects.put('/:id', async (req,res)=>{
     try {
+        console.log(req.body)
         let updatedProject = await Projects.update(req.body, {
-            where: { project_id: req.params.id }
+            where: { project_id: req.params.id }, returning:true, plain:true
         })
+        res.status(200).json(updatedProject[1])
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 })
@@ -66,6 +72,7 @@ projects.delete('/:id', async (req,res)=>{
         console.log(`project deleted : ${deletedProject}`)
         console.log(`Tasks deleted : ${deletedTasks}`)
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 })
@@ -78,6 +85,7 @@ projects.get('/:id/tasks', async (req,res)=>{
         })
         res.status(200).json(foundTasks)
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 })
@@ -90,6 +98,7 @@ projects.get('/:id/group', async (req,res)=>{
         })
         res.status(200).json(group)
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 
@@ -99,11 +108,13 @@ projects.post('/:id/group/:member_id', async (req,res)=>{
     try {
         res.status(200).send("POST route for adding group member.")
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 })
 // DELETE route for removing member from a group. This route should only work for the group leader
 projects.delete('/:id/group/:member_id', async (req,res)=>{
+    console.log(err)
     res.status(200).send("DELETE route for deleting a group member.")
 })
 // EXPORT
