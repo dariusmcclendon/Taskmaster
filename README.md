@@ -86,6 +86,7 @@ Projects will follow the same pattern.
 
 Collaborators will be able to assign themselves tasks in a project they are authorized for. Collaborators should not see or have access to the project control panel, including the delete and edit buttons for the tasks they are assigned. This is why in the task table, createdBy and assignedTo are separate cells.
 
+<<<<<<< HEAD
 ## Planned Changes
 - BONUS : Group functionality
 
@@ -137,6 +138,16 @@ Seeders generated. Routes reorganized. Routes confirmed to function properly. RE
  - Layout changes. Upcoming Tasks added to Dashboard. (note: unable to edit tasks from dashboard.)
  - Group functionality moved to different branch
  - Styling.
+=======
+## Schedule
+
+Ironically enough, this is the part where this project would come in handy. 
+
+7/05/22 - Complete General README.md documentation. Include routes and tables required. Create frontend and backend folders locally and prepare github repositories.
+
+7/07/22 - Skeleton of backend routes. Pseudo-code acceptable. Migrations began and/or complete by the end of the class session. 
+
+>>>>>>> 645102e03aee45210dee4053002dbf2d8624f583
 
 
 
