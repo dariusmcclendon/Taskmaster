@@ -2,11 +2,12 @@
 
 //imports
 import React, { useState, useEffect,useContext } from 'react'
-import { Card, Container, Button, Row, Col} from 'react-bootstrap'
+import {Container, Row, Col} from 'react-bootstrap'
 import { Navigate, useNavigate } from 'react-router-dom'
 import TaskList from '../components/TaskList'
 import ProjectCarousel from '../components/ProjectCarousel'
 import {CurrentUser} from '../contexts/currentUser'
+
 
 export default function Dashboard(props){
     // state variables
@@ -56,29 +57,34 @@ export default function Dashboard(props){
     }
 
     return (
-        <Container fluid className='dashboard bg-light'>
-            <Row className='text-light bg-dark rounded-left'>
+        <Container fluid className='dashboard'>
+            <Row className=' py-1 px-5 text-light bg-dark rounded-left'>
                 <h2>Dashboard</h2>
             </Row>
             <Row>
-                <Container fluid>
-                    <h3>Your Projects</h3>
-                    <ProjectCarousel projects={projects} viewClick={viewClick}/>
-                </Container>
+                <ProjectCarousel projects={projects} viewClick={viewClick}/>
             </Row>
            
             
-                <Row className=' mb-3 text-light bg-dark rounded-left'>
-                    <h3 >Tasks</h3>
+                <Row className=' py-1 px-5 text-light bg-dark rounded-left'>
+                    <h3>Tasks</h3>
                 </Row>
                 
-                <Row>
+                <Row className='py-1 px-5 mb-3 border-bottom'>
                     <Col>
                         <h4>Due Today</h4>
-                        <TaskList tasks={dueToday} fetchTasks={fetchTasks}/>
+                        
                     </Col>
                     <Col>
                         <h4>Upcoming</h4>
+                        
+                    </Col>
+                </Row>
+                <Row className='py-1 px-5'>
+                    <Col>
+                        <TaskList tasks={dueToday} fetchTasks={fetchTasks}/>
+                    </Col>
+                    <Col>
                         <TaskList tasks={upComing} fetchTasks={fetchTasks}/>
                     </Col>
                 </Row>

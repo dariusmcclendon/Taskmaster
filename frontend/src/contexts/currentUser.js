@@ -11,7 +11,8 @@ function CurrentUserProvider({ children }) {
         //logging
         let getLoggedInUser = async ()=>{
             console.log('fetching user')
-            let response = await fetch('http://localhost:3000/api/auth/profile', {
+            console.log(process.env.REACT_APP_DB_URL)
+            let response = await fetch(`http://localhost:3000/api/auth/profile`, {
                 credentials: 'include'
             })
             let user = await response.json()

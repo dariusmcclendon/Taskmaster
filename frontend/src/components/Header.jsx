@@ -20,7 +20,7 @@ export default function Header(props){
     if(currentUser===null){
         return (
             <div>
-                <Navbar bg="light" expand="lg">
+                <Navbar bg="primary" variant='dark' expand="lg" className='border-bottom'>
                     <Container fluid>
                         <Navbar.Brand href='/home'>Taskmaster Auth Branch</Navbar.Brand>
                         <Navbar.Toggle aria-controls='basic-navbar-nav'/>
@@ -39,8 +39,8 @@ export default function Header(props){
     }else if(currentUser){
         return (
             <div>
-                <Navbar bg="light" expand="lg">
-                    <Container fluid>
+                <Navbar bg="primary" variant='dark' expand="lg" className='border-bottom'>
+                    <Container fluid >
                         <Navbar.Brand href='/home'>Taskmaster Auth Branch || {currentUser.display_name}</Navbar.Brand>
                         <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                         <Navbar.Collapse id='basic-navbar-nav'>

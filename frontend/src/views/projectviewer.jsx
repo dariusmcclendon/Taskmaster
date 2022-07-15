@@ -20,7 +20,6 @@ export default function ProjectViewer(props) {
     let [update, setUpdate] = useState(false) // used to force updates
     let [showUpdateProject, setShowUpdateProject] = useState(false)
     let [showNewProject, setShowNewProject] = useState(false) // used to show new project module
-    let [newProjectName, setNewProjectName] = useState('') // Pass to NewProject component
     let [showNewTask, setShowNewTask] = useState(false)
     
     // initial fetch of user's projects.
@@ -87,8 +86,8 @@ export default function ProjectViewer(props) {
         }
     }
     return (
-        <Container>
-            <Modal show={showNewProject} onHide={()=>{setShowNewProject(false)}}>
+        <Container fluid className='projectview'>
+            <Modal show={showNewProject} onHide={()=>{setShowNewProject(false)}} centered>
                 <NewProject
                     setCurrentProject={setCurrentProject}
                     setUpdate={setUpdate}
@@ -96,44 +95,57 @@ export default function ProjectViewer(props) {
                     show={setShowNewProject}
                                 /> 
                 </Modal>
-            <Modal show={showUpdateProject} onHide={()=>{setShowUpdateProject(false)}}>
+            <Modal show={showUpdateProject} onHide={()=>{setShowUpdateProject(false)}} centered>
                 <EditProjectModule
                                 show={setShowUpdateProject}
                                 project={currentProject}
                                 setCurrentProject={setCurrentProject}
                                 />
             </Modal>
-           
-            <h2>Projects <Button variant='success' className='mx-2'
-                        onClick={() => { setShowNewProject(true) ; setShowUpdateProject(false)}}>
-                        New Project
-                    </Button></h2>
-            <Row>
-                <ProjectCarousel
-                    projects={projects}
-                    viewClick={setCurrentProject}
+            
+                <Row className='py-1 px-5 text-light bg-dark rounded-left'>
+                    <Col>
+                        <h2 className='my-1 align-middle'>Projects </h2>
+                    </Col>
+                    <Col>
+                        <Button variant='success' className='my-1 float-end'
+                                onClick={() => { setShowNewProject(true) ; setShowUpdateProject(false)}}>
+                                New Project
+                            </Button>
+                    </Col>
+                
+                </Row>
+                
+                <Row>
+                    <ProjectCarousel
+                        projects={projects}
+                        viewClick={setCurrentProject}
 
-                    currentProject={currentProject} />
+                        currentProject={currentProject} />
+                </Row>
+           
+           
+            <Row className='mb-3 border-bottom py-1 px-5 '>
+                <Col>
+                    <h3>{currentProject? currentProject.title : null}</h3>
+                </Col>
+                <Col>
+                   
+                        <Button variant='danger' className='mx-2 float-end'
+                            onClick={()=>{deleteProject()}}>
+                            Delete
+                        </Button>
+                        <Button variant='warning' className='mx-2 float-end'
+                            onClick={()=>{setShowUpdateProject(true) ; setShowNewProject(false)}}>
+                            Edit
+                        </Button>
+                </Col>
+                
+                
             </Row>
-            <Row>
-                <Col>
-                <h3>{currentProject? currentProject.title : null}</h3>
+                
+            <Row className='border-bottom py-1 px-5 '> 
                 <p>{currentProject ? currentProject.desc : null}</p>
-                </Col>
-                
-                <Col>
-                
-                    <Button variant='warning' className='mx-2'
-                        onClick={()=>{setShowUpdateProject(true) ; setShowNewProject(false)}}>
-                        Edit
-                    </Button>
-                    <Button variant='danger' className='mx-2'
-                        onClick={()=>{deleteProject()}}>
-                        Delete
-                    </Button>
-                </Col>
-                    
-                
             </Row>
             <Row>
                         
@@ -148,15 +160,19 @@ export default function ProjectViewer(props) {
             </Row>
             <Row>
                 <Container>
-                <Row>
-                        <h3>Tasks
-                            <Button variants='success' className='mx-2'
-                                onClick={() => { setShowNewTask(true) }}>
-                                New Task
-                            </Button>
-                        </h3>
+                <Row className='mb-3 py-1 px-5 text-light bg-dark rounded-left'>
+                    <Col>
+                    <h3 className='my-1'>Tasks</h3>
+                    </Col>
+                    <Col>
+                        <Button variants='success' className='mx-2 my-1 float-end'
+                                    onClick={() => { setShowNewTask(true) }}>
+                                    New Task
+                                </Button>
+                    </Col>
+                        
                     </Row>
-                    <Row>
+                    <Row className='py-1 px-5'>
                         {showNewTask ? <NewTask
                             show={setShowNewTask} fetchTasks={fetchTasks} currentProject={currentProject}
                         /> : null}

@@ -80,7 +80,7 @@ export default function TaskList(props){
                 return (
                     <Accordion.Item  eventKey={task.task_id} >
                         <Accordion.Header>
-                            <p className='m-0'>{task.title} | Due : {taskDueString} {task.complete ? <Badge bg='success'>Complete</Badge> : <Badge bg='danger'>Incomplete</Badge>}</p>
+                            <p className='m-0'>{task.title} | Due : {taskDueString} {task.complete ? <Badge bg='success' className='mt-1'>Complete</Badge> : <Badge bg='danger' className='mt-1'>Incomplete</Badge>}</p>
                             </Accordion.Header>
                         <Accordion.Body >
                             <Row className='mb-3'>

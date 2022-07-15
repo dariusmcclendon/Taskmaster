@@ -7,9 +7,9 @@ import {CurrentUser} from '../contexts/currentUser'
 export default function EditTaskModule(props){
     // state variables
     let {currentUser} = useContext(CurrentUser)
-    let [newTaskName, setNewTaskName] = useState('')
+    let [newTaskName, setNewTaskName] = useState(props.task.title)
     let [taskDate, setTaskDate] = useState(new Date())
-    let [taskDesc, setTaskDesc] = useState('')
+    let [taskDesc, setTaskDesc] = useState(props.task.desc)
 
     let updateTask = async(e)=>{
         e.preventDefault()
