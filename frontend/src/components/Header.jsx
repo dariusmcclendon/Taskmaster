@@ -22,7 +22,7 @@ export default function Header(props){
             <div>
                 <Navbar bg="primary" variant='dark' expand="lg" className='border-bottom'>
                     <Container fluid>
-                        <Navbar.Brand href='/home'>Taskmaster Auth Branch</Navbar.Brand>
+                        <Navbar.Brand href='/'>Taskmaster</Navbar.Brand>
                         <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                         <Navbar.Collapse id='basic-navbar-nav'>
                             <Nav className='me-auto'>
@@ -41,7 +41,7 @@ export default function Header(props){
             <div>
                 <Navbar bg="primary" variant='dark' expand="lg" className='border-bottom'>
                     <Container fluid >
-                        <Navbar.Brand href='/home'>Taskmaster Auth Branch || {currentUser.display_name}</Navbar.Brand>
+                        <Navbar.Brand href='/'>Taskmaster || {currentUser.display_name}</Navbar.Brand>
                         <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                         <Navbar.Collapse id='basic-navbar-nav'>
                             <Nav className='me-auto'>
