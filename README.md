@@ -2,7 +2,10 @@
 
  Project by Darius McClendon
 
-## GitHub [here](https://github.com/dariusmcclendon/Taskmaster)
+## GitHub Monorepo [here](https://github.com/dariusmcclendon/Taskmaster)
+## Clientside Heroku Deployment [here](https://taskmaster-io.herokuapp.com)
+## Backend Heroku Deployment [here](https://taskmaster-io-api.herokuapp.com)
+Note : Heroku Deployments run off split repos, which can be found [here](https://github.com/dariusmcclendon/Taskmaster-API) and [here](https://github.com/dariusmcclendon/Taskmaster-Client)
 
 ### Description
 
