@@ -86,7 +86,7 @@ Projects will follow the same pattern.
 
 Collaborators will be able to assign themselves tasks in a project they are authorized for. Collaborators should not see or have access to the project control panel, including the delete and edit buttons for the tasks they are assigned. This is why in the task table, createdBy and assignedTo are separate cells.
 
-<<<<<<< HEAD
+
 ## Planned Changes
 - BONUS : Group functionality
 
@@ -144,6 +144,9 @@ Seeders generated. Routes reorganized. Routes confirmed to function properly. RE
 
 ## 7/16/22
  - Landing page added (forgot about that!)
+
+## 7/17/22
+ - Deployment
 
 
 
